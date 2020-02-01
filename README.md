@@ -12,6 +12,7 @@ Safe Routes is a mobile application that determines a driving route between two 
 - Consider weather conditions in analysis
 - Consider time of day in analysis
 ## Learning Resources:
+-   [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
 -	[Choosing between React Native and Flutter](https://hackr.io/blog/react-native-vs-flutter)
 -	[Getting started with React](https://facebook.github.io/react-native/docs/getting-started)
 -	[Getting started with Flutter](https://flutter.dev/docs/get-started/install)
