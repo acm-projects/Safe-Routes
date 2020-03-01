@@ -14,7 +14,8 @@
         android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="adjustResize">
+        android:windowSoftInputMode="adjustNothing">  <!--i changed this from adjustResize to adjustNothing to
+        stop the keyboard from resizing flexbox components. Works well in the Create Routes screen.-->
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
