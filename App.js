@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   StyleSheet,
   Button,
@@ -16,21 +16,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-var coordinates = [
-  {
-    //UTD
-    latitude: 32.9928297,
-    longitude: -96.75095189999999,
-  },
-  {
-    //Cityline Bush Station
-    latitude: 33.0016756,
-    longitude: -96.70317690000002,
-  },
-];
-
-
-const GOOGLE_MAPS_APIKEY = ''; //Enter the API key here. Remove it before pushing to GitHub.
+const GOOGLE_MAPS_APIKEY = 'AIzaSyDPlSDDWDMtQWbBiPCC5_zOMHYt0SD8LDU'; //Enter the API key here. Remove it before pushing to GitHub.
 const origin = "The+University+of+Texas+at+Dallas,+800+W+Campbell+Rd,+Richardson,+TX+75080";
 const destination = "Cityline%2FBush,+East+President+George+Bush+Highway,+Richardson,+TX";
 
@@ -41,7 +27,21 @@ const Stack = createStackNavigator();
 
 //Each screen on the app is a function that returns the components that should be displayed to the screen.
 //Pass navigation to each app screen function to allow you to call things like navigation.navigate() and move to different screens.
-function MapScreen({ navigation }) {
+function MapScreen({ route, navigation }) {
+    const [markerLocation, setMarkerLocation] = useState({
+      markers: [{
+        coordinates: {
+          latitude: 32.9928297,
+          longitude: -96.75095189999999,
+        },
+      },
+      {
+        coordinates: {
+          latitude: 33.0016756,
+          longitude: -96.70317690000002,
+        },
+      }]
+    });
     return (
       <View style={styles.container}>
         <MapView
@@ -53,12 +53,15 @@ function MapScreen({ navigation }) {
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
           }}>
-          <MapView.Marker coordinate={coordinates[0]} />
-          <MapView.Marker coordinate={coordinates[1]} />
-
+          <MapView.Marker
+            coordinate={markerLocation.markers[0].coordinates}
+          />
+          <MapView.Marker
+            coordinate={markerLocation.markers[1].coordinates}
+          />
           <MapViewDirections
-            origin={coordinates[0]}
-            destination={coordinates[1]}
+            origin={markerLocation.markers[0].coordinates}
+            destination={markerLocation.markers[1].coordinates}
             apikey={GOOGLE_MAPS_APIKEY}
             strokeWidth={4}
             strokeColor="#ff2063"
@@ -67,7 +70,7 @@ function MapScreen({ navigation }) {
         <Button
           color = "#ff2063"
           title="Create Route"
-          onPress={() => navigation.navigate('Create Route')}
+          onPress={() => navigation.navigate('Create Route', {setMarkerLocation})}
         />
       </View>
     );
@@ -82,13 +85,37 @@ function CreateRouteScreen() {
             style={{ height: 40 }}
             placeholder = 'Latitude'
             keyboardType = 'numeric'
-            onChangeText={text => {}}
+            onChangeText={text => {setMarkerLocation({
+              markers: [{
+                coordinates: {
+                  latitude: text,
+                },
+              },
+              {
+                coordinates: {
+                  latitude: 33.0016756,
+                  longitude: -96.70317690000002,
+                },
+              }]
+            });}}
           />
           <TextInput
             style={{ height: 40 }}
             placeholder = 'Longitude'
             keyboardType = 'numeric'
-            onChangeText={text => {}}
+            onChangeText={text => {setMarkerLocation({
+              markers: [{
+                coordinates: {
+                  longitude: text,
+                },
+              },
+              {
+                coordinates: {
+                  latitude: 33.0016756,
+                  longitude: -96.70317690000002,
+                },
+              }]
+            });}}
           />
       </View>
       <View style={{ flex: 2, backgroundColor: '#ff2063'}}>
@@ -101,8 +128,9 @@ function CreateRouteScreen() {
   );
 }
 
-//This is the central function for our app. Just contains the navigation stuff.
-function App(){
+//This is the class for our app. Just contains the navigation stuff.
+export default class App extends Component {
+  render(){
     return(
       <NavigationContainer>
         <Stack.Navigator>
@@ -117,6 +145,7 @@ function App(){
         </Stack.Navigator>
       </NavigationContainer>
     );
+  }
 }
 
 //Styles can be declared here instead of inline so that they are easier to maintain.
@@ -131,5 +160,3 @@ const styles = StyleSheet.create({
 
   },
 });
-
-export default App;
