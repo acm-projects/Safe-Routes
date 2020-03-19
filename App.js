@@ -11,9 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-//import { getDirections, _createRouteCoordinates } from './DirectionsAPI';
-import MapViewDirections from 'react-native-maps-directions';
+import MapView, {Polyline} from 'react-native-maps';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -57,16 +55,25 @@ mapStyle = [
     ]
   }
 ]
+//This library from Mapbox provides a decoding function to decode the overview_polyline string returned by the Google Directions API.
+var polyline = require('@mapbox/polyline');
 
 //Each screen on the app is a function that returns the components that should be displayed to the screen.
 //Pass navigation to each app screen function to allow you to call things like navigation.navigate() and move to different screens.
 //Route parameter contains all the other stuff that you might want to pass into the MapScreen.
 function MapScreen({ route, navigation }) {
     if(typeof route.params !== 'undefined' && route.params.newRouteInfo != undefined) {
+      var polylineCoordinates = polyline.decode(route.params.newRouteInfo.overview_polyline.points);
+      let polylineCoordinatesLatLng = polylineCoordinates.map((point, index) => {
+            return  {
+                latitude : point[0],
+                longitude : point[1]
+            }
+        })
       return (
         <View style={styles.container}>
           <MapView
-            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+            provider="google" // remove if not using Google Maps
             style={styles.map}
             customMapStyle = {mapStyle}
             showsUserLocation = {true}
@@ -83,13 +90,10 @@ function MapScreen({ route, navigation }) {
             <MapView.Marker
               coordinate={{latitude: route.params.newRouteInfo.legs[0].end_location.lat, longitude: route.params.newRouteInfo.legs[0].end_location.lng}}
             />
-            <MapViewDirections
-              origin={{latitude: route.params.newRouteInfo.legs[0].start_location.lat, longitude: route.params.newRouteInfo.legs[0].start_location.lng}}
-              destination={{latitude: route.params.newRouteInfo.legs[0].end_location.lat, longitude: route.params.newRouteInfo.legs[0].end_location.lng}}
-              apikey={GOOGLE_MAPS_APIKEY}
+            <Polyline
+              coordinates = {polylineCoordinatesLatLng}
               strokeWidth={4}
               strokeColor="#ff2063"
-              precision="high" //Apparently setting this to high this makes the route line more accurate. Why not?
             />
           </MapView>
           <Button
@@ -104,7 +108,7 @@ function MapScreen({ route, navigation }) {
     else return(
       <View style={styles.container}>
         <MapView
-          provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+          provider="google" // remove if not using Google Maps
           style={styles.map}
           customMapStyle = {mapStyle}
           showsUserLocation = {true}
@@ -141,6 +145,7 @@ function CreateRouteScreen({ route, navigation }) {
   var latLongReadoutTo;
   var readyToRequestDirections = true;
 
+  //The mess of if-else statements below checks if the origin and destination are valid, if so their latitudes and longitudes will be displayed, if not they will not be displayed and readyToRequestDirections will reflect that a Directions API request should not be made yet.
   if (geocodingData.responseJson[0] != undefined && geocodingData.responseJson[0].status === "OK") {
     let llrstr = geocodingData.responseJson[0].results[0].geometry.location.lat + ", " + geocodingData.responseJson[0].results[0].geometry.location.lng;
     latLongReadoutFrom = <Text style={styles.latLongReadout}>{llrstr}</Text>;
