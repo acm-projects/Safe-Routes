@@ -62,26 +62,7 @@ mapStyle = [
 //Pass navigation to each app screen function to allow you to call things like navigation.navigate() and move to different screens.
 //Route parameter contains all the other stuff that you might want to pass into the MapScreen.
 function MapScreen({ route, navigation }) {
-    var [location, setLocation] = useState({
-      markers: [{
-        coordinates: {
-          latitude: 32.9928297,
-          longitude: -96.75095189999999,
-        },
-      },
-      {
-        coordinates: {
-          latitude: 33.0016756,
-          longitude: -96.70317690000002,
-        },
-      }]
-    });
-    if(typeof route.params !== 'undefined') {
-      //If statement below makes sure setLocation is only called once when the current marker position does not match the updated one passed in.
-      //Otherwise, setLocation will call the function again and begin an infinite loop.
-      if(location != route.params.newMarkerCoords)
-          setLocation(route.params.newMarkerCoords);
-
+    if(typeof route.params !== 'undefined' && route.params.newRouteInfo != undefined) {
       return (
         <View style={styles.container}>
           <MapView
@@ -91,20 +72,20 @@ function MapScreen({ route, navigation }) {
             showsUserLocation = {true}
             followUserLocation = {false}
             region={{
-            latitude: location.markers[0].coordinates.latitude,
-            longitude: location.markers[0].coordinates.longitude,
-            latitudeDelta: Math.abs(location.markers[0].coordinates.latitude - location.markers[1].coordinates.latitude),
-            longitudeDelta: Math.abs(location.markers[0].coordinates.longitude - location.markers[1].coordinates.longitude),
+            latitude: route.params.newRouteInfo.legs[0].start_location.lat,
+            longitude: route.params.newRouteInfo.legs[0].start_location.lng,
+            latitudeDelta: Math.abs(route.params.newRouteInfo.legs[0].start_location.lat - route.params.newRouteInfo.legs[0].end_location.lat),
+            longitudeDelta: Math.abs(route.params.newRouteInfo.legs[0].start_location.lng - route.params.newRouteInfo.legs[0].end_location.lng),
             }}>
             <MapView.Marker
-              coordinate={location.markers[0].coordinates}
+              coordinate={{latitude: route.params.newRouteInfo.legs[0].start_location.lat, longitude: route.params.newRouteInfo.legs[0].start_location.lng}}
             />
             <MapView.Marker
-              coordinate={location.markers[1].coordinates}
+              coordinate={{latitude: route.params.newRouteInfo.legs[0].end_location.lat, longitude: route.params.newRouteInfo.legs[0].end_location.lng}}
             />
             <MapViewDirections
-              origin={location.markers[0].coordinates}
-              destination={location.markers[1].coordinates}
+              origin={{latitude: route.params.newRouteInfo.legs[0].start_location.lat, longitude: route.params.newRouteInfo.legs[0].start_location.lng}}
+              destination={{latitude: route.params.newRouteInfo.legs[0].end_location.lat, longitude: route.params.newRouteInfo.legs[0].end_location.lng}}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={4}
               strokeColor="#ff2063"
@@ -147,40 +128,71 @@ function CreateRouteScreen({ route, navigation }) {
   //Create a state to pass to the next screen when you navigate to it. This state is called pass. It can be changed using the setPass function.
   //Use the React useState hook to create a state outside of a class. React.useState returns an array with 2 values: the current state (pass), and a function to update it (setPass).
   //Calling useState multiple times does nothing, useState should only be called once and then the state should be changed with setPass.
-  const [pass, setPass] = React.useState({
-    markers: [{
-      coordinates: {
-        latitude: 32.9928297,
-        longitude: -96.75095189999999,
-      },
-    },
-    {
-      coordinates: {
-        latitude: 33.0016756,
-        longitude: -96.70317690000002,
-      },
-    }]
-  });
+  const [routeData, setRouteData] = React.useState(undefined);
   const [geocodingData, setGeocodingData] = React.useState({
     inputs: ["",""],
     loading: [false,false],
-    responseJson: [undefined,undefined]
+    responseJson: [undefined,undefined],
+    newLocationLoaded: false //flag that stops infinite direction requests from being executed. True only if a new location has been loaded and a direction request has not been made with it yet.
   });
   var loadingWheelFrom = (geocodingData.loading[0] == true) ? <ActivityIndicator color="#ff2063"/> : <View/>; //renders a loading wheel if the origin geocoding api call is not complete, renders nothing otherwise
   var loadingWheelTo = (geocodingData.loading[1] == true) ? <ActivityIndicator color='#f7dfe6'/> : <View/>; //renders a loading wheel if the destination geocoding api call is not complete, renders nothing otherwise
   var latLongReadoutFrom;
   var latLongReadoutTo;
+  var readyToRequestDirections = true;
+
   if (geocodingData.responseJson[0] != undefined && geocodingData.responseJson[0].status === "OK") {
     let llrstr = geocodingData.responseJson[0].results[0].geometry.location.lat + ", " + geocodingData.responseJson[0].results[0].geometry.location.lng;
     latLongReadoutFrom = <Text style={styles.latLongReadout}>{llrstr}</Text>;
-  } else {
+  }
+  else {
     latLongReadoutFrom = <View/>;
+    readyToRequestDirections = false;
   }
   if (geocodingData.responseJson[1] != undefined && geocodingData.responseJson[1].status === "OK") {
     let llrstr = geocodingData.responseJson[1].results[0].geometry.location.lat + ", " + geocodingData.responseJson[1].results[0].geometry.location.lng;
     latLongReadoutTo = <Text style={styles.latLongReadout}>{llrstr}</Text>;
-  } else {
+  }
+  else {
     latLongReadoutTo = <View/>;
+    readyToRequestDirections = false;
+  }
+  if(!geocodingData.newLocationLoaded) readyToRequestDirections = false;
+
+  if(readyToRequestDirections){
+    setGeocodingData({
+      inputs: [geocodingData.inputs[0], geocodingData.inputs[1]],
+      loading: [geocodingData.loading[0],geocodingData.loading[1]],
+      responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]],
+      newLocationLoaded: false
+    });
+    fetch('https://maps.googleapis.com/maps/api/directions/json?origin=place_id:' + geocodingData.responseJson[0].results[0].place_id + '&destination=place_id:' + geocodingData.responseJson[1].results[0].place_id + '&alternatives=true&key=' + GOOGLE_MAPS_APIKEY)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      setRouteData(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  var routesDisplay = [];
+  if(typeof routeData !== "undefined"){
+    if(routeData.status === "OK"){
+      routeData.routes.forEach(function(entry, index) {
+        routesDisplay[index] =
+        <TouchableOpacity onPress={() => {navigation.navigate('Map', {newRouteInfo: routeData.routes[index]});} } key = {index} style = {styles.routesDisplays}>
+          <View style = {{flex: 8}}>
+            <Text>{entry.summary}</Text>
+            <Text style={{ fontSize: 12 }}>{entry.legs[0].distance.text}</Text>
+            <Text style={{ fontSize: 12 }}>{entry.legs[0].duration.text}</Text>
+          </View>
+          <View style = {{flex: 2}}>
+            <Text style={styles.ratingLetter}>F</Text>
+          </View>
+        </TouchableOpacity>;
+      });
+    }
   }
   return (
     <View style={{ flex: 1, flexDirection: 'column',}}>
@@ -198,44 +210,39 @@ function CreateRouteScreen({ route, navigation }) {
               setGeocodingData({
                 inputs: [text, geocodingData.inputs[1]],
                 loading: [geocodingData.loading[0],geocodingData.loading[1]],
-                responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]]
+                responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]],
+                newLocationLoaded: geocodingData.newLocationLoaded
               });
             }}
             onEndEditing = {event => {
               setGeocodingData({
                 inputs: [geocodingData.inputs[0],geocodingData.inputs[1]],
                 loading: [true,geocodingData.loading[1]], //the state should reflect that the data fetch is incomplete
-                responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]]
+                responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]],
+                newLocationLoaded: geocodingData.newLocationLoaded
               });
               //encodeURIComponent encodes the text in a way that is valid for the API request. For example, a space becomes %20.
               var apiRequestAddress = encodeURIComponent(geocodingData.inputs[0]);
               //fetch() is how we can make HTTP API calls. Below, the Google Maps Geocoding API is called. The JSON returned by Google is already a JavaScript object,
               //so the data is really easy to access. Info about accessing the Geocoding API is at https://developers.google.com/maps/documentation/geocoding/intro#GeocodingRequests
               //Getting stuff from an API is asynchronous so that is what the .then is for, it is a callback.
-                fetch('https:/' + '/maps.googleapis.com/maps/api/geocode/json?address=' + apiRequestAddress + '&key=' + GOOGLE_MAPS_APIKEY)
+                fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + apiRequestAddress + '&key=' + GOOGLE_MAPS_APIKEY)
                 .then((response) => response.json())
                 .then((responseJson) => {
+                  if(responseJson.status === "OK")
                   setGeocodingData({
                     inputs: [responseJson.results[0].formatted_address, geocodingData.inputs[1]],
                     loading: [false, geocodingData.loading[1]],
-                    responseJson: [responseJson, geocodingData.responseJson[1]]
+                    responseJson: [responseJson, geocodingData.responseJson[1]],
+                    newLocationLoaded: true
                   });
-                  if (responseJson.status === "OK") {
-                    setPass({
-                      markers: [{
-                        coordinates: {
-                          latitude: responseJson.results[0].geometry.location.lat, //set the first marker's coordinates to the new ones
-                          longitude: responseJson.results[0].geometry.location.lng,
-                        },
-                      },
-                      {
-                        coordinates: {
-                          latitude: pass.markers[1].coordinates.latitude, //keep these the same
-                          longitude: pass.markers[1].coordinates.longitude,
-                        },
-                      }]
-                    });
-                  }
+                  else
+                  setGeocodingData({
+                    inputs: ["", geocodingData.inputs[1]],
+                    loading: [false, geocodingData.loading[1]],
+                    responseJson: [responseJson, geocodingData.responseJson[1]],
+                    newLocationLoaded: true
+                  });
                 })
                 .catch((error) => {
                   console.error(error);
@@ -259,41 +266,36 @@ function CreateRouteScreen({ route, navigation }) {
             setGeocodingData({
               inputs: [geocodingData.inputs[0],text],
               loading: [geocodingData.loading[0],geocodingData.loading[1]],
-              responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]]
+              responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]],
+              newLocationLoaded: geocodingData.newLocationLoaded
             });
           }}
           onEndEditing={event => {
             setGeocodingData({
               inputs: [geocodingData.inputs[0], geocodingData.inputs[1]],
               loading: [geocodingData.loading[0], true], //the state should reflect that the data fetch is incomplete
-              responseJson: [geocodingData.responseJson[0], geocodingData.responseJson[1]]
+              responseJson: [geocodingData.responseJson[0], geocodingData.responseJson[1]],
+              newLocationLoaded: geocodingData.newLocationLoaded
             });
             //encodeURIComponent encodes the text in a way that is valid for the API request. For example, a space becomes %20.
             var apiRequestAddress = encodeURIComponent(geocodingData.inputs[1]);
-            fetch('https:/' + '/maps.googleapis.com/maps/api/geocode/json?address=' + apiRequestAddress + '&key=' + GOOGLE_MAPS_APIKEY)
+            fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + apiRequestAddress + '&key=' + GOOGLE_MAPS_APIKEY)
             .then((response) => response.json())
             .then((responseJson) => {
+              if(responseJson.status === "OK")
               setGeocodingData({
                 inputs: [geocodingData.inputs[0], responseJson.results[0].formatted_address],
                 loading: [geocodingData.loading[0], false],
-                responseJson: [geocodingData.responseJson[0], responseJson]
+                responseJson: [geocodingData.responseJson[0], responseJson],
+                newLocationLoaded: true
               });
-              if (responseJson.status === "OK") {
-                setPass({
-                  markers: [{
-                    coordinates: {
-                      latitude: pass.markers[0].coordinates.latitude, //keep these the same
-                      longitude: pass.markers[0].coordinates.longitude,
-                    },
-                  },
-                  {
-                    coordinates: {
-                      latitude: responseJson.results[0].geometry.location.lat, //set the second marker's coordinates to the new ones
-                      longitude: responseJson.results[0].geometry.location.lng,
-                    },
-                  }]
-                });
-              }
+              else
+              setGeocodingData({
+                inputs: [geocodingData.inputs[0], ""],
+                loading: [geocodingData.loading[0], false],
+                responseJson: [geocodingData.responseJson[0], responseJson],
+                newLocationLoaded: true
+              });
             })
             .catch((error) => {
               console.error(error);
@@ -306,11 +308,10 @@ function CreateRouteScreen({ route, navigation }) {
       </View>
       <View style={{ flex: 5 }}>
         <Text style={{ fontSize: 18 }}> Recommended Routes </Text>
+        <View style={{ paddingTop: 10}}>
+          {routesDisplay}
+        </View>
       </View>
-      <Button
-         title="Go back"
-         onPress={() => navigation.navigate('Map', {newMarkerCoords: pass})} //Create a parameter called newMarkerCoords and pass the state to it
-       />
     </View>
   );
 }
@@ -335,6 +336,17 @@ export default class App extends Component {
 
 //Styles can be declared here instead of inline so that they are easier to maintain.
 const styles = StyleSheet.create({
+  ratingLetter: {
+    fontSize: 20,
+    color: 'maroon'
+  },
+  routesDisplays: {
+    height: 60,
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderWidth: 1,
+    flexDirection: 'row'
+  },
   latLongReadout: {
     color: '#777777',
     fontSize: 10,
