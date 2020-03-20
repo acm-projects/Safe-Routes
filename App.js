@@ -71,7 +71,7 @@ function MapScreen({ route, navigation }) {
             }
         })
       return (
-        <View style={styles.container}>
+        <View style = {styles.container}>
           <MapView
             provider="google" // remove if not using Google Maps
             style={styles.map}
@@ -96,17 +96,17 @@ function MapScreen({ route, navigation }) {
               strokeColor="#ff2063"
             />
           </MapView>
-          <Button
-            color = "#ff2063"
-            title="Create Route"
-            onPress={() => navigation.navigate('Create Route')}
-          />
+          <TouchableOpacity
+            style = {styles.createRouteButton}
+            onPress={() => navigation.navigate('Create Route')}>
+            <Text style = {styles.createRouteButtonText}>Create Route</Text>
+          </TouchableOpacity>
         </View>
       );
     }
 
     else return(
-      <View style={styles.container}>
+      <View style = {styles.container}>
         <MapView
           provider="google" // remove if not using Google Maps
           style={styles.map}
@@ -119,19 +119,19 @@ function MapScreen({ route, navigation }) {
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         }}/>
-        <Button
-          color = "#ff2063"
-          title="Create Route"
-          onPress={() => navigation.navigate('Create Route')}
-        />
+        <TouchableOpacity
+          style = {styles.createRouteButton}
+          onPress={() => navigation.navigate('Create Route')}>
+          <Text style = {styles.createRouteButtonText}>Create Route</Text>
+        </TouchableOpacity>
       </View>
     );
 }
 
 function CreateRouteScreen({ route, navigation }) {
-  //Create a state to pass to the next screen when you navigate to it. This state is called pass. It can be changed using the setPass function.
-  //Use the React useState hook to create a state outside of a class. React.useState returns an array with 2 values: the current state (pass), and a function to update it (setPass).
-  //Calling useState multiple times does nothing, useState should only be called once and then the state should be changed with setPass.
+  //Create a state to pass to the next screen when you navigate to it. This state is called routeData. It can be changed using the setRouteData function.
+  //Use the React useState hook to create a state outside of a class. React.useState returns an array with 2 values: the current state (routeData), and a function to update it (setRouteData).
+  //Calling useState multiple times does nothing, useState should only be called once and then the state should be changed with setRouteData.
   const [routeData, setRouteData] = React.useState(undefined);
   const [geocodingData, setGeocodingData] = React.useState({
     inputs: ["",""],
@@ -139,6 +139,8 @@ function CreateRouteScreen({ route, navigation }) {
     responseJson: [undefined,undefined],
     newLocationLoaded: false //flag that stops infinite direction requests from being executed. True only if a new location has been loaded and a direction request has not been made with it yet.
   });
+  const [dropdowns, setDropdowns] = React.useState([false,false,false]);
+
   var loadingWheelFrom = (geocodingData.loading[0] == true) ? <ActivityIndicator color="#ff2063"/> : <View/>; //renders a loading wheel if the origin geocoding api call is not complete, renders nothing otherwise
   var loadingWheelTo = (geocodingData.loading[1] == true) ? <ActivityIndicator color='#f7dfe6'/> : <View/>; //renders a loading wheel if the destination geocoding api call is not complete, renders nothing otherwise
   var latLongReadoutFrom;
@@ -181,34 +183,46 @@ function CreateRouteScreen({ route, navigation }) {
     });
   }
 
+  //if routes have been received from the Directions API, create a view to display each of them which, when clicked,
+  //will send the appropriate route info to the map screen and navigate there so the user can view the route.
   var routesDisplay = [];
   if(typeof routeData !== "undefined"){
     if(routeData.status === "OK"){
       routeData.routes.forEach(function(entry, index) {
         routesDisplay[index] =
-        <TouchableOpacity onPress={() => {navigation.navigate('Map', {newRouteInfo: routeData.routes[index]});} } key = {index} style = {styles.routesDisplays}>
-          <View style = {{flex: 8}}>
-            <Text>{entry.summary}</Text>
-            <Text style={{ fontSize: 12 }}>{entry.legs[0].distance.text}</Text>
-            <Text style={{ fontSize: 12 }}>{entry.legs[0].duration.text}</Text>
-          </View>
-          <View style = {{flex: 2}}>
-            <Text style={styles.ratingLetter}>F</Text>
-          </View>
-        </TouchableOpacity>;
+        <View key = {index} style = {styles.routesDisplays}>
+          <TouchableOpacity style = {{flexDirection: 'row', padding: 5, flex: 2, backgroundColor: '#f7dfe6'}} onPress={() => {navigation.navigate('Map', {newRouteInfo: routeData.routes[index]});} }>
+            <View style = {{flex: 8}}>
+              <Text>{entry.summary}</Text>
+              <Text style={{ fontSize: 12 }}>{entry.legs[0].distance.text}</Text>
+              <Text style={{ fontSize: 12 }}>{entry.legs[0].duration.text}</Text>
+            </View>
+            <View style = {{flex: 2, justifyContent:'center', alignItems: 'center'}}>
+              <Text style={styles.ratingLetter}>F</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style = {{alignItems: "center", justifyContent: "center", backgroundColor: "#ff2063", flex: 1}} onPress={() => {
+            let currentDropdownState = dropdowns;
+            currentDropdownState[index] = true;
+            setDropdowns(currentDropdownState);
+          }}>
+            <Text style = {styles.viewAnalysis}>▽ View safety analysis</Text>
+          </TouchableOpacity>
+        </View>;
       });
     }
   }
   return (
     <View style={{ flex: 1, flexDirection: 'column',}}>
-    <Text style={{ fontSize: 20 }}> Create Route </Text>
-      <View style={{ flex: 2, backgroundColor: '#f7dfe6'}} behavior="padding" enabled>
+    <Text style={{ fontFamily: 'Varela-Regular',  fontSize: 20 }}> Create Route </Text>
+      <View style={{ flex: 2, backgroundColor: '#f7dfe6', padding: 3}}>
         <View style = {{ flexDirection: 'row' }}>
-          <Text style={{ fontSize: 18 }}> From </Text>
+          <Text style={{ fontFamily: 'Varela-Regular', fontSize: 18 }}> From </Text>
           {loadingWheelFrom}
+          {latLongReadoutFrom}
         </View>
           <TextInput
-            style={{ height: 40 }}
+            style={{ fontFamily: 'Varela-Regular', height: 40 }}
             placeholder = 'Origin'
             keyboardType = 'default'
             onChangeText = {text => {
@@ -256,15 +270,15 @@ function CreateRouteScreen({ route, navigation }) {
           }
           value = {geocodingData.inputs[0]}
           />
-          {latLongReadoutFrom}
       </View>
-      <View style={{ flex: 2, backgroundColor: '#ff2063'}}>
+      <View style={{ flex: 2, backgroundColor: '#ff2063', padding: 3}}>
         <View style = {{ flexDirection: 'row' }}>
-          <Text style={{ fontSize: 18 }}> To </Text>
+          <Text style={{ fontFamily: 'Varela-Regular', fontSize: 18 }}> To </Text>
           {loadingWheelTo}
+          {latLongReadoutTo}
         </View>
         <TextInput
-          style={{ height: 40 }}
+          style={{ fontFamily: 'Varela-Regular', height: 40 }}
           placeholder = 'Destination'
           keyboardType = 'default'
           onChangeText = {text => {
@@ -309,11 +323,10 @@ function CreateRouteScreen({ route, navigation }) {
         }
         value = {geocodingData.inputs[1]}
         />
-        {latLongReadoutTo}
       </View>
-      <View style={{ flex: 5 }}>
-        <Text style={{ fontSize: 18 }}> Recommended Routes </Text>
-        <View style={{ paddingTop: 10}}>
+      <View style={{ flex: 6 }}>
+        <Text style={{ fontFamily: 'Varela-Regular', fontSize: 18 }}> Recommended Routes </Text>
+        <View style={{ paddingTop: 5}}>
           {routesDisplay}
         </View>
       </View>
@@ -321,7 +334,7 @@ function CreateRouteScreen({ route, navigation }) {
   );
 }
 
-//This is the class for our app. Just contains the navigation stuff.
+//This is the main class for our app. Just contains the navigation stuff.
 export default class App extends Component {
   render(){
     return(
@@ -342,28 +355,44 @@ export default class App extends Component {
 //Styles can be declared here instead of inline so that they are easier to maintain.
 const styles = StyleSheet.create({
   ratingLetter: {
-    fontSize: 20,
+    fontSize: 30,
     color: 'maroon'
   },
   routesDisplays: {
-    height: 60,
-    borderStyle: 'solid',
-    borderColor: 'black',
-    borderWidth: 1,
-    flexDirection: 'row'
+    height: 90,
   },
   latLongReadout: {
     color: '#777777',
     fontSize: 10,
-    marginLeft: 10
+    marginLeft: 'auto',
+    alignSelf: 'center'
+  },
+  createRouteButton: {
+    position: "absolute",
+    backgroundColor: "#ff2063",
+    height: 40,
+    width: 170,
+    opacity: .85,
+    borderRadius: 20,
+    bottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center'
+  },
+  createRouteButtonText: {
+    fontSize: 18,
+    color: 'white',
+    fontFamily: 'Varela-Regular'
   },
   container: {
-    flex: 1
+     flex: 1,
+     flexDirection: "column-reverse",
   },
   map: {
     flex: 1
   },
-  text:{
-
-  },
+  viewAnalysis: {
+    color: "white",
+    fontSize: 12
+  }
 });
