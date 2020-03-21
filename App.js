@@ -63,6 +63,31 @@ var polyline = require('@mapbox/polyline');
 //Route parameter contains all the other stuff that you might want to pass into the MapScreen.
 function MapScreen({ route, navigation }) {
     if(typeof route.params !== 'undefined' && route.params.newRouteInfo != undefined) {
+
+      var roadList = [];
+      route.params.newRouteInfo.legs[0].steps.forEach(function(entry, index) {
+        let instructions = entry.html_instructions;
+        let indexOfBTag = instructions.search("<b>");
+        while(indexOfBTag !== -1){
+          let indexOfExit = instructions.search("exit"); //Check to see if the next bolded part is an exit. If it is, get rid of it entirely because the exit will get counted as a road otherwise.
+          if(indexOfExit !== -1 && indexOfExit < indexOfBTag) {
+            let indexOfClosingBTag = instructions.search("</b>");
+            instructions = instructions.substring(indexOfClosingBTag + 3);
+            indexOfBTag = instructions.search("<b>");
+            continue;
+          }
+          instructions = instructions.substring(indexOfBTag + 3);
+          let indexOfClosingBTag = instructions.search("</b>");
+          if(indexOfClosingBTag === -1) break;
+          let boldedString = instructions.substring(0, indexOfClosingBTag);
+          //in bolded parts of html_instructions, road names have spaces between them. If this string has a space (and you checked to make sure it's not an exit already), it's a road. Also check to ensure no duplicates.
+          if(boldedString.search(" ") != -1  && roadList.indexOf(boldedString) === -1)
+            roadList.push(boldedString);
+          indexOfBTag = instructions.search("<b>");
+        }
+      });
+      alert(roadList);
+
       var polylineCoordinates = polyline.decode(route.params.newRouteInfo.overview_polyline.points);
       let polylineCoordinatesLatLng = polylineCoordinates.map((point, index) => {
             return  {
