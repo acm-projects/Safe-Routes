@@ -9,7 +9,10 @@ import {
   View,
   KeyboardAvoidingView,
   TouchableOpacity,
+  ScrollView,
+  Switch
 } from 'react-native';
+import RouteOption from './RouteOption';
 
 import MapView, {Polyline} from 'react-native-maps';
 import { NavigationContainer } from '@react-navigation/native';
@@ -164,7 +167,19 @@ function CreateRouteScreen({ route, navigation }) {
     responseJson: [undefined,undefined],
     newLocationLoaded: false //flag that stops infinite direction requests from being executed. True only if a new location has been loaded and a direction request has not been made with it yet.
   });
-  const [dropdowns, setDropdowns] = React.useState([false,false,false]);
+  const [switchEnabled, setSwitchEnabled] = useState(false);
+
+  var avoidHighways = "";
+  if(switchEnabled) avoidHighways = "&avoid=highways";
+  const toggleSwitch = () => {
+    setGeocodingData({
+      inputs: [geocodingData.inputs[0], geocodingData.inputs[1]],
+      loading: [geocodingData.loading[0],geocodingData.loading[1]],
+      responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]],
+      newLocationLoaded: true
+    });
+    setSwitchEnabled(previousState => !previousState)
+  };
 
   var loadingWheelFrom = (geocodingData.loading[0] == true) ? <ActivityIndicator color="#ff2063"/> : <View/>; //renders a loading wheel if the origin geocoding api call is not complete, renders nothing otherwise
   var loadingWheelTo = (geocodingData.loading[1] == true) ? <ActivityIndicator color='#f7dfe6'/> : <View/>; //renders a loading wheel if the destination geocoding api call is not complete, renders nothing otherwise
@@ -198,7 +213,7 @@ function CreateRouteScreen({ route, navigation }) {
       responseJson: [geocodingData.responseJson[0],geocodingData.responseJson[1]],
       newLocationLoaded: false
     });
-    fetch('https://maps.googleapis.com/maps/api/directions/json?origin=place_id:' + geocodingData.responseJson[0].results[0].place_id + '&destination=place_id:' + geocodingData.responseJson[1].results[0].place_id + '&alternatives=true&key=' + GOOGLE_MAPS_APIKEY)
+    fetch('https://maps.googleapis.com/maps/api/directions/json?origin=place_id:' + geocodingData.responseJson[0].results[0].place_id + '&destination=place_id:' + geocodingData.responseJson[1].results[0].place_id + avoidHighways + '&alternatives=true&key=' + GOOGLE_MAPS_APIKEY)
     .then((response) => response.json())
     .then((responseJson) => {
       setRouteData(responseJson);
@@ -215,32 +230,29 @@ function CreateRouteScreen({ route, navigation }) {
     if(routeData.status === "OK"){
       routeData.routes.forEach(function(entry, index) {
         routesDisplay[index] =
-        <View key = {index} style = {styles.routesDisplays}>
-          <TouchableOpacity style = {{flexDirection: 'row', padding: 5, flex: 2, backgroundColor: '#f7dfe6'}} onPress={() => {navigation.navigate('Map', {newRouteInfo: routeData.routes[index]});} }>
-            <View style = {{flex: 8}}>
-              <Text>{entry.summary}</Text>
-              <Text style={{ fontSize: 12 }}>{entry.legs[0].distance.text}</Text>
-              <Text style={{ fontSize: 12 }}>{entry.legs[0].duration.text}</Text>
+          <RouteOption
+            summary = {entry.summary}
+            distance = {entry.legs[0].distance.text}
+            duration = {entry.legs[0].duration.text}
+            ratingLetter = 'F' //This will be set to our calculated safety rating
+            key = {index}
+          >
+            <View style = {{height: 80, justifyContent: 'flex-end'}}>
+              <Text style = {styles.safetyFacts}>0 accidents reported along this route in the past year</Text>
+              <TouchableOpacity
+                onPress={() => {navigation.navigate('Map', {newRouteInfo: routeData.routes[index]});}}
+                style = {styles.selectRouteButton}>
+                <Text style = {styles.selectRouteButtonText}>Select Route</Text>
+              </TouchableOpacity>
             </View>
-            <View style = {{flex: 2, justifyContent:'center', alignItems: 'center'}}>
-              <Text style={styles.ratingLetter}>F</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style = {{alignItems: "center", justifyContent: "center", backgroundColor: "#ff2063", flex: 1}} onPress={() => {
-            let currentDropdownState = dropdowns;
-            currentDropdownState[index] = true;
-            setDropdowns(currentDropdownState);
-          }}>
-            <Text style = {styles.viewAnalysis}>▽ View safety analysis</Text>
-          </TouchableOpacity>
-        </View>;
+          </RouteOption>
       });
     }
   }
   return (
-    <View style={{ flex: 1, flexDirection: 'column',}}>
+    <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#ffffff'}}>
     <Text style={{ fontFamily: 'Varela-Regular',  fontSize: 20 }}> Create Route </Text>
-      <View style={{ flex: 2, backgroundColor: '#f7dfe6', padding: 3}}>
+      <View style={{ flex: 3, backgroundColor: '#f7dfe6', padding: 3}}>
         <View style = {{ flexDirection: 'row' }}>
           <Text style={{ fontFamily: 'Varela-Regular', fontSize: 18 }}> From </Text>
           {loadingWheelFrom}
@@ -296,7 +308,7 @@ function CreateRouteScreen({ route, navigation }) {
           value = {geocodingData.inputs[0]}
           />
       </View>
-      <View style={{ flex: 2, backgroundColor: '#ff2063', padding: 3}}>
+      <View style={{ flex: 3, backgroundColor: '#ff2063', padding: 3}}>
         <View style = {{ flexDirection: 'row' }}>
           <Text style={{ fontFamily: 'Varela-Regular', fontSize: 18 }}> To </Text>
           {loadingWheelTo}
@@ -349,11 +361,21 @@ function CreateRouteScreen({ route, navigation }) {
         value = {geocodingData.inputs[1]}
         />
       </View>
-      <View style={{ flex: 6 }}>
+      <View style = {{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+        <Switch
+          trackColor={{ false: "#767577", true: "#f7dfe6" }}
+          thumbColor={switchEnabled ? "#ff2063" : "#bababa"}
+          onValueChange={toggleSwitch}
+          value={switchEnabled}
+        />
+        <Text style = {{fontFamily: 'Varela-Regular', fontSize: 15}}>Avoid highways</Text>
+      </View>
+      <View style={{ flex: 9 }}>
         <Text style={{ fontFamily: 'Varela-Regular', fontSize: 18 }}> Recommended Routes </Text>
-        <View style={{ paddingTop: 5}}>
+        <ScrollView style={{ paddingTop: 3}}>
           {routesDisplay}
-        </View>
+        </ScrollView>
+        <View style = {{width: '100%', height: '100%', backgroundColor: '#ffffff', flex: 1, alignSelf: 'stretch'}}/>
       </View>
     </View>
   );
@@ -377,15 +399,10 @@ export default class App extends Component {
   }
 }
 
-//Styles can be declared here instead of inline so that they are easier to maintain.
+
+
+//Styles can be declared here instead of inline so that they are easier to maintain..
 const styles = StyleSheet.create({
-  ratingLetter: {
-    fontSize: 30,
-    color: 'maroon'
-  },
-  routesDisplays: {
-    height: 90,
-  },
   latLongReadout: {
     color: '#777777',
     fontSize: 10,
@@ -409,6 +426,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Varela-Regular'
   },
+  selectRouteButtonText: {
+    fontSize: 16,
+    color: 'white',
+    fontFamily: 'Varela-Regular'
+  },
   container: {
      flex: 1,
      flexDirection: "column-reverse",
@@ -419,5 +441,21 @@ const styles = StyleSheet.create({
   viewAnalysis: {
     color: "white",
     fontSize: 12
+  },
+  selectRouteButton: {
+    bottom: 5,
+    backgroundColor: "#ff2063",
+    borderRadius: 20,
+    height: 30,
+    width: 140,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center'
+  },
+  safetyFacts: {
+    fontFamily: 'Varela-Regular',
+    fontSize: 12,
+    marginBottom: 10,
+    color: '#262626'
   }
 });
