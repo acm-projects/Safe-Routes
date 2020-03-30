@@ -48,7 +48,7 @@ class RouteOption extends Component {
               <TouchableOpacity style = {{padding: 5}} onPress={this.toggle.bind(this)}>
                 <View style = {{flexDirection: 'row'}}>
                   <View style = {{flex: 8}}>
-                    <Text style={{ fontSize: 14, fontFamily: 'Varela-Regular'}}>{this.props.summary}</Text>
+                    <Text style={{ fontSize: 14, fontFamily: 'Varela-Regular'}} numberOfLines = {1}>{this.props.summary}</Text>
                     <Text style={{ fontSize: 12, fontFamily: 'Varela-Regular'}}>{this.props.distance}</Text>
                     <Text style={{ fontSize: 12, fontFamily: 'Varela-Regular'}}>{this.props.duration}</Text>
                   </View>
