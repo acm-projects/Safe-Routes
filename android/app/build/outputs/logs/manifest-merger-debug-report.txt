@@ -1,0 +1,321 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:1:1-31:12
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:1:1-31:12
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:1:1-31:12
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:1:1-31:12
+MERGED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:1:1-31:12
+MERGED from [:react-native-community_masked-view] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\@react-native-community\masked-view\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-gesture-handler] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-gesture-handler\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-maps] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-maps\lib\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-12:12
+MERGED from [:react-native-reanimated] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-reanimated\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-safe-area-context] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-safe-area-context\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-screens] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-screens\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [com.facebook.react:react-native:0.61.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\72542f43b25d78154766b21a7fa33ec3\AndroidManifest.xml:2:1-13:12
+MERGED from [org.webkit:android-jsc:r245459] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\0ca99337355ede92f975f479c60252db\AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.material:material:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e2a488bce9cb957dc2ec03148076eaab\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a153b6bc31a800eaff0c22dfcebeda31\AndroidManifest.xml:17:1-24:12
+MERGED from [com.facebook.fresco:fresco:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\bf6c8615103a65b974b471402d5974a5\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\73c95485fe05de217df3d4c1d4512601\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:drawee:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e00f7fc9c128f793f6645a0e52466962\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:nativeimagefilters:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\3fa4ae1f8b544dfe688950bfa798b734\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b5b9baaf9ebc8f057377ba66556681c2\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\71c1b49148163d633d8370332351cad8\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b3c029c2a4773eb05f7976501f57f5d3\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.soloader:soloader:0.6.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\ea8399ff8294221f40b07dbefc6eb54a\AndroidManifest.xml:2:1-13:12
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:17:1-38:12
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\148963e02382733851a88257e2196cf7\AndroidManifest.xml:2:1-13:12
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6c64f7307047c888be530037801a9811\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b2cc771f1b434f74b1ec73bb04fd3e70\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\9c1d9d547688949959e8aa8b639e20b3\AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\dea020b1966f184f5221c133b11e7f2c\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.2.1] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\11242c580215fd5ffbbea059fe64a0e3\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e5db4022ef78744f6a3f54721ec065e8\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\62fcbd1d143d2a8a68c220c2e1840ca2\AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.fresco:fbcore:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\944d1c15662f9cd946face19aa003388\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\ba6f8a1c1ebb32a1eb2068a89a63d9da\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\f600090a918b9aade65b03276d6d3bda\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\12a54c4813c138cc7b9196a793d25f00\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\667c475392d831417fdc200ea87f5fd4\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\48506f067e2ee3de77f7c44a7b1d0bbf\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\2d1ee896515ef890612a05bfdcc569e4\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\15ea8e1ea402d09c491fddb9ea539152\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\f0ce6ca17d09e21332c10ae9e7b28a36\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\cdc95e8a82f7309095016e79f4024a9d\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\43d776e1a0b715afe96f999f5ad226d8\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d60fbba812c228f3a252b06f5ad13d42\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\2282c8b3057181d4a8653ff2aa427a4d\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\7cf42dde5c5a4b64794c108ff7fb815e\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d9eda90b6b07734ebe4a0da140090f47\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\5ad71b153603750bfae1d217d4f13102\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a65a05815a95d991d1e0f71bfe7baba0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\3a12701895d6ea29beedb5a50ac30421\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\943100a96500f6eae77d39d47f97a25e\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\1c3d3987d66c850a83eafbb3d2d69b2d\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a62232eb31767a7392a7f6c3410e2941\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\503c68c53879f15bfdd3a213a82dc1f5\AndroidManifest.xml:17:1-24:12
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:2:1-9:12
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:2:1-9:12
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:2:1-9:12
+	package
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:2:3-29
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:2:3-29
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:1:1-31:12
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml
+	xmlns:tools
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:1:1-31:12
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:4:5-67
+MERGED from [:react-native-maps] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-maps\lib\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-67
+MERGED from [:react-native-maps] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-maps\lib\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-67
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:24:5-67
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:4:22-64
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:5:5-79
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:5:22-76
+application
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:7:5-29:19
+MERGED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:7:5-29:19
+MERGED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:7:5-29:19
+MERGED from [com.facebook.react:react-native:0.61.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\72542f43b25d78154766b21a7fa33ec3\AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.react:react-native:0.61.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\72542f43b25d78154766b21a7fa33ec3\AndroidManifest.xml:11:5-20
+MERGED from [com.google.android.material:material:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e2a488bce9cb957dc2ec03148076eaab\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e2a488bce9cb957dc2ec03148076eaab\AndroidManifest.xml:22:5-20
+MERGED from [com.facebook.soloader:soloader:0.6.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\ea8399ff8294221f40b07dbefc6eb54a\AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:soloader:0.6.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\ea8399ff8294221f40b07dbefc6eb54a\AndroidManifest.xml:11:5-20
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:30:5-36:19
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:30:5-36:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\148963e02382733851a88257e2196cf7\AndroidManifest.xml:7:5-11:19
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\148963e02382733851a88257e2196cf7\AndroidManifest.xml:7:5-11:19
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b2cc771f1b434f74b1ec73bb04fd3e70\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b2cc771f1b434f74b1ec73bb04fd3e70\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\9c1d9d547688949959e8aa8b639e20b3\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\9c1d9d547688949959e8aa8b639e20b3\AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.core:core:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\43d776e1a0b715afe96f999f5ad226d8\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\43d776e1a0b715afe96f999f5ad226d8\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d60fbba812c228f3a252b06f5ad13d42\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d60fbba812c228f3a252b06f5ad13d42\AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\43d776e1a0b715afe96f999f5ad226d8\AndroidManifest.xml:24:18-86
+	android:label
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:9:7-39
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:9:7-39
+	tools:ignore
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:7:75-114
+	android:roundIcon
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:11:7-52
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:11:7-52
+	tools:targetApi
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:7:54-74
+	android:icon
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:10:7-41
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:10:7-41
+	android:allowBackup
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:12:7-34
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:12:7-34
+	android:theme
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:13:7-38
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:13:7-38
+	android:usesCleartextTraffic
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:7:18-53
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:8:7-38
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:8:7-38
+activity#com.firstproject.MainActivity
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:14:7-24:18
+	android:label
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:16:9-41
+	android:windowSoftInputMode
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:18:9-52
+	android:configChanges
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:17:9-79
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:15:9-37
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:20:9-23:25
+action#android.intent.action.MAIN
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:21:13-65
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:21:21-62
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:22:13-73
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:22:23-70
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:25:7-84
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:25:17-81
+meta-data#com.google.android.geo.API_KEY
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:26:7-28:66
+	android:value
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:28:9-64
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml:27:9-54
+uses-sdk
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml
+MERGED from [:react-native-community_masked-view] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\@react-native-community\masked-view\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-community_masked-view] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\@react-native-community\masked-view\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-gesture-handler] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-gesture-handler\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-gesture-handler] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-gesture-handler\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-maps] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-maps\lib\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-maps] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-maps\lib\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-reanimated] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-reanimated\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-reanimated] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-reanimated\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-safe-area-context] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-safe-area-context\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-safe-area-context] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-safe-area-context\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-screens] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-screens\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-screens] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-screens\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.61.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\72542f43b25d78154766b21a7fa33ec3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.61.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\72542f43b25d78154766b21a7fa33ec3\AndroidManifest.xml:7:5-9:41
+MERGED from [org.webkit:android-jsc:r245459] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\0ca99337355ede92f975f479c60252db\AndroidManifest.xml:7:5-9:41
+MERGED from [org.webkit:android-jsc:r245459] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\0ca99337355ede92f975f479c60252db\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.material:material:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e2a488bce9cb957dc2ec03148076eaab\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e2a488bce9cb957dc2ec03148076eaab\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a153b6bc31a800eaff0c22dfcebeda31\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a153b6bc31a800eaff0c22dfcebeda31\AndroidManifest.xml:20:5-22:41
+MERGED from [com.facebook.fresco:fresco:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\bf6c8615103a65b974b471402d5974a5\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\bf6c8615103a65b974b471402d5974a5\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\73c95485fe05de217df3d4c1d4512601\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\73c95485fe05de217df3d4c1d4512601\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e00f7fc9c128f793f6645a0e52466962\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e00f7fc9c128f793f6645a0e52466962\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagefilters:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\3fa4ae1f8b544dfe688950bfa798b734\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagefilters:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\3fa4ae1f8b544dfe688950bfa798b734\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b5b9baaf9ebc8f057377ba66556681c2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b5b9baaf9ebc8f057377ba66556681c2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\71c1b49148163d633d8370332351cad8\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\71c1b49148163d633d8370332351cad8\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b3c029c2a4773eb05f7976501f57f5d3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b3c029c2a4773eb05f7976501f57f5d3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.soloader:soloader:0.6.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\ea8399ff8294221f40b07dbefc6eb54a\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.6.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\ea8399ff8294221f40b07dbefc6eb54a\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:20:5-44
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\148963e02382733851a88257e2196cf7\AndroidManifest.xml:5:5-43
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\148963e02382733851a88257e2196cf7\AndroidManifest.xml:5:5-43
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6c64f7307047c888be530037801a9811\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6c64f7307047c888be530037801a9811\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b2cc771f1b434f74b1ec73bb04fd3e70\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\b2cc771f1b434f74b1ec73bb04fd3e70\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\9c1d9d547688949959e8aa8b639e20b3\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\9c1d9d547688949959e8aa8b639e20b3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\dea020b1966f184f5221c133b11e7f2c\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\dea020b1966f184f5221c133b11e7f2c\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.1] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\11242c580215fd5ffbbea059fe64a0e3\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.1] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\11242c580215fd5ffbbea059fe64a0e3\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e5db4022ef78744f6a3f54721ec065e8\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\e5db4022ef78744f6a3f54721ec065e8\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\62fcbd1d143d2a8a68c220c2e1840ca2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\62fcbd1d143d2a8a68c220c2e1840ca2\AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.fresco:fbcore:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\944d1c15662f9cd946face19aa003388\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\944d1c15662f9cd946face19aa003388\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\ba6f8a1c1ebb32a1eb2068a89a63d9da\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\ba6f8a1c1ebb32a1eb2068a89a63d9da\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\f600090a918b9aade65b03276d6d3bda\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\f600090a918b9aade65b03276d6d3bda\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\12a54c4813c138cc7b9196a793d25f00\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\12a54c4813c138cc7b9196a793d25f00\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\667c475392d831417fdc200ea87f5fd4\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\667c475392d831417fdc200ea87f5fd4\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\48506f067e2ee3de77f7c44a7b1d0bbf\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\48506f067e2ee3de77f7c44a7b1d0bbf\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\2d1ee896515ef890612a05bfdcc569e4\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\2d1ee896515ef890612a05bfdcc569e4\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\15ea8e1ea402d09c491fddb9ea539152\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\15ea8e1ea402d09c491fddb9ea539152\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\f0ce6ca17d09e21332c10ae9e7b28a36\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\f0ce6ca17d09e21332c10ae9e7b28a36\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\cdc95e8a82f7309095016e79f4024a9d\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\cdc95e8a82f7309095016e79f4024a9d\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\43d776e1a0b715afe96f999f5ad226d8\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\43d776e1a0b715afe96f999f5ad226d8\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d60fbba812c228f3a252b06f5ad13d42\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d60fbba812c228f3a252b06f5ad13d42\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\2282c8b3057181d4a8653ff2aa427a4d\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\2282c8b3057181d4a8653ff2aa427a4d\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\7cf42dde5c5a4b64794c108ff7fb815e\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\7cf42dde5c5a4b64794c108ff7fb815e\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d9eda90b6b07734ebe4a0da140090f47\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d9eda90b6b07734ebe4a0da140090f47\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\5ad71b153603750bfae1d217d4f13102\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\5ad71b153603750bfae1d217d4f13102\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a65a05815a95d991d1e0f71bfe7baba0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a65a05815a95d991d1e0f71bfe7baba0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\3a12701895d6ea29beedb5a50ac30421\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\3a12701895d6ea29beedb5a50ac30421\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\943100a96500f6eae77d39d47f97a25e\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\943100a96500f6eae77d39d47f97a25e\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\1c3d3987d66c850a83eafbb3d2d69b2d\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\1c3d3987d66c850a83eafbb3d2d69b2d\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a62232eb31767a7392a7f6c3410e2941\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\a62232eb31767a7392a7f6c3410e2941\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\503c68c53879f15bfdd3a213a82dc1f5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\503c68c53879f15bfdd3a213a82dc1f5\AndroidManifest.xml:20:5-22:41
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml
+INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:5:5-77
+	android:name
+		ADDED from C:\Users\leoal\AndroidStudioProjects\FirstProject\android\app\src\debug\AndroidManifest.xml:5:22-75
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from [:react-native-maps] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-maps\lib\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from [:react-native-maps] C:\Users\leoal\AndroidStudioProjects\FirstProject\node_modules\react-native-maps\lib\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:10:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:23:5-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:23:22-76
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:26:5-28:35
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:27:9-41
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:28:9-32
+uses-library#org.apache.http.legacy
+ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:33:9-35:40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:35:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\6f5d5f9d109d7185f96ec2dbb69b52bc\AndroidManifest.xml:34:13-50
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\d3c27be650a23796ec39d328645cac2b\AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\148963e02382733851a88257e2196cf7\AndroidManifest.xml:8:9-10:69
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\9c1d9d547688949959e8aa8b639e20b3\AndroidManifest.xml:23:9-25:69
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\9c1d9d547688949959e8aa8b639e20b3\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\148963e02382733851a88257e2196cf7\AndroidManifest.xml:10:13-66
+	android:name
+		ADDED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\leoal\.gradle\caches\transforms-2\files-2.1\148963e02382733851a88257e2196cf7\AndroidManifest.xml:9:13-58
