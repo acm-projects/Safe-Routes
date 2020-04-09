@@ -17,7 +17,7 @@ export default class App extends Component {
 
   getDataUsingGet(){
     //GET request
-    fetch('http://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=2909e5f110bd59507e4e5e1f3cd38840', {
+    fetch('http://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=', {
         method: 'GET'
         //Request Type
     })
