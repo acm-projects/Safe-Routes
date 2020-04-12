@@ -10,7 +10,8 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   ScrollView,
-  Switch
+  Switch,
+  Dimensions
 } from 'react-native';
 import RouteOption from './RouteOption';
 
@@ -27,8 +28,11 @@ const destination = "Cityline%2FBush,+East+President+George+Bush+Highway,+Richar
 //onto the stack. Allows going back multiple times to whatever screen you were on previously.
 const Stack = createStackNavigator();
 
+var width = Dimensions.get('window').width; //full screen width
+var height = Dimensions.get('window').height; //full screen height
+
 //Custom style for the Google Maps API. I tried tweaking the original to make Safe Routes' map stand out a bit.
-//Create your own with mapstyle.withgoogle.com and snazzymaps.com
+//Create your own with mapstyle.withgoogle.com and/or snazzymaps.com
 mapStyle = [
   {
     "featureType": "landscape.natural",
@@ -65,32 +69,9 @@ var polyline = require('@mapbox/polyline');
 //Pass navigation to each app screen function to allow you to call things like navigation.navigate() and move to different screens.
 //Route parameter contains all the other stuff that you might want to pass into the MapScreen.
 function MapScreen({ route, navigation }) {
+  const [navStatus, setNavStatus] = React.useState(0);
+
     if(typeof route.params !== 'undefined' && route.params.newRouteInfo != undefined) {
-
-      var roadList = [];
-      route.params.newRouteInfo.legs[0].steps.forEach(function(entry, index) {
-        let instructions = entry.html_instructions;
-        let indexOfBTag = instructions.search("<b>");
-        while(indexOfBTag !== -1){
-          let indexOfExit = instructions.search("exit"); //Check to see if the next bolded part is an exit. If it is, get rid of it entirely because the exit will get counted as a road otherwise.
-          if(indexOfExit !== -1 && indexOfExit < indexOfBTag) {
-            let indexOfClosingBTag = instructions.search("</b>");
-            instructions = instructions.substring(indexOfClosingBTag + 3);
-            indexOfBTag = instructions.search("<b>");
-            continue;
-          }
-          instructions = instructions.substring(indexOfBTag + 3);
-          let indexOfClosingBTag = instructions.search("</b>");
-          if(indexOfClosingBTag === -1) break;
-          let boldedString = instructions.substring(0, indexOfClosingBTag);
-          //in bolded parts of html_instructions, road names have spaces between them. If this string has a space (and you checked to make sure it's not an exit already), it's a road. Also check to ensure no duplicates.
-          if(boldedString.search(" ") != -1  && roadList.indexOf(boldedString) === -1)
-            roadList.push(boldedString);
-          indexOfBTag = instructions.search("<b>");
-        }
-      });
-      alert(roadList);
-
       var polylineCoordinates = polyline.decode(route.params.newRouteInfo.overview_polyline.points);
       let polylineCoordinatesLatLng = polylineCoordinates.map((point, index) => {
             return  {
@@ -98,6 +79,35 @@ function MapScreen({ route, navigation }) {
                 longitude : point[1]
             }
         })
+      var stepInstructions = route.params.newRouteInfo.legs[0].steps[navStatus].html_instructions;
+
+      //get rid of the stupid html tags
+      stepInstructions = stepInstructions.replace(/<b>/g, ""); //remove <b> tag
+      stepInstructions = stepInstructions.replace(/<\/b>/g, ""); //remove </b> tag
+      stepInstructions = stepInstructions.replace(/<wbr\/>/g, ""); //remove <wbr/> tag
+      var openingTagOpener = stepInstructions.indexOf("<");
+      var openingTagCloser = stepInstructions.indexOf(">");
+      if(openingTagOpener !== -1 && openingTagCloser !== -1){ //if there is a <[tagName] style = ...> remove that whole thing and replace with -
+        let firstHalf = stepInstructions.substring(0, openingTagOpener);
+        let secondHalf = stepInstructions.substring(openingTagCloser + 1);
+        let tagName = stepInstructions.substring(openingTagOpener + 1, openingTagCloser);
+        let nameCutOff = tagName.indexOf(" ");
+        if(nameCutOff !== -1) tagName = tagName.substring(0, nameCutOff);
+        console.log(tagName);
+        stepInstructions = firstHalf + " - " + secondHalf;
+        stepInstructions = stepInstructions.replace("</" + tagName + ">", ""); //remove </[tagName]> tag
+      }
+      var ampersand = stepInstructions.indexOf("&");
+      var semicolon = stepInstructions.indexOf(";");
+      if(ampersand !== -1 && semicolon !== -1){ //get rid of the codes between & and ; such as &nbsp;
+        let firstHalf = stepInstructions.substring(0, ampersand);
+        let secondHalf = stepInstructions.substring(semicolon + 1);
+        stepInstructions = firstHalf + " " + secondHalf;
+      }
+
+      var stepDistance = route.params.newRouteInfo.legs[0].steps[navStatus].distance.text;
+      var stepDuration = route.params.newRouteInfo.legs[0].steps[navStatus].duration.text;
+      var stepNumber = (navStatus + 1) + "/" + route.params.newRouteInfo.legs[0].steps.length;
       return (
         <View style = {styles.container}>
           <MapView
@@ -107,16 +117,26 @@ function MapScreen({ route, navigation }) {
             showsUserLocation = {true}
             followUserLocation = {false}
             region={{
-            latitude: route.params.newRouteInfo.legs[0].start_location.lat,
-            longitude: route.params.newRouteInfo.legs[0].start_location.lng,
-            latitudeDelta: Math.abs(route.params.newRouteInfo.legs[0].start_location.lat - route.params.newRouteInfo.legs[0].end_location.lat),
-            longitudeDelta: Math.abs(route.params.newRouteInfo.legs[0].start_location.lng - route.params.newRouteInfo.legs[0].end_location.lng),
+            latitude: (route.params.newRouteInfo.legs[0].steps[navStatus].start_location.lat + route.params.newRouteInfo.legs[0].steps[navStatus].end_location.lat) / 2,
+            longitude: (route.params.newRouteInfo.legs[0].steps[navStatus].start_location.lng + route.params.newRouteInfo.legs[0].steps[navStatus].end_location.lng) / 2,
+            latitudeDelta: Math.abs(route.params.newRouteInfo.legs[0].steps[navStatus].start_location.lat - route.params.newRouteInfo.legs[0].steps[navStatus].end_location.lat) * 1.1, //*1.1 gives a bit of padding
+            longitudeDelta: Math.abs(route.params.newRouteInfo.legs[0].steps[navStatus].start_location.lng - route.params.newRouteInfo.legs[0].steps[navStatus].end_location.lng) * 1.1,
             }}>
             <MapView.Marker
               coordinate={{latitude: route.params.newRouteInfo.legs[0].start_location.lat, longitude: route.params.newRouteInfo.legs[0].start_location.lng}}
+              image = {require('./assets/images/markerA.png')}
             />
             <MapView.Marker
               coordinate={{latitude: route.params.newRouteInfo.legs[0].end_location.lat, longitude: route.params.newRouteInfo.legs[0].end_location.lng}}
+              image = {require('./assets/images/markerB.png')}
+            />
+            <MapView.Marker
+              coordinate={{latitude: route.params.newRouteInfo.legs[0].steps[navStatus].start_location.lat, longitude: route.params.newRouteInfo.legs[0].steps[navStatus].start_location.lng}}
+              image = {require('./assets/images/cartakeoff.png')}
+            />
+            <MapView.Marker
+              coordinate={{latitude: route.params.newRouteInfo.legs[0].steps[navStatus].end_location.lat, longitude: route.params.newRouteInfo.legs[0].steps[navStatus].end_location.lng}}
+              image = {require('./assets/images/carlanding.png')}
             />
             <Polyline
               coordinates = {polylineCoordinatesLatLng}
@@ -124,16 +144,49 @@ function MapScreen({ route, navigation }) {
               strokeColor="#ff2063"
             />
           </MapView>
-          <TouchableOpacity
-            style = {styles.createRouteButton}
-            onPress={() => navigation.navigate('Create Route')}>
-            <Text style = {styles.createRouteButtonText}>Create Route</Text>
-          </TouchableOpacity>
+          <View style = {styles.navigator}>
+            <TouchableOpacity
+            style = {{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ff2063'}}
+            onPress={() => {setNavStatus(0); navigation.setParams({newRouteInfo: undefined});}}>
+              <Text style = {{fontSize: 36, color: 'white'}}>X</Text>
+            </TouchableOpacity>
+            <View style = {{flex: 6, padding: 4, alignItems: 'center', justifyContent: 'center'}}>
+              <ScrollView>
+                <Text style = {{fontSize: 18, fontFamily: 'Varela-Regular', textAlign: 'center'}}>{stepInstructions}</Text>
+                <Text style = {{textAlign: 'center'}}>{stepDistance}</Text>
+                <Text style = {{textAlign: 'center'}}>{stepDuration}</Text>
+              </ScrollView>
+            </View>
+            <View style = {{flex: 3, backgroundColor: "#ff2063", flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+              <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Text style = {{fontSize: 30, fontFamily: 'Varela-Regular', color: 'white'}}>{stepNumber}</Text>
+              </View>
+              <View style = {{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                <TouchableOpacity style = {{flex: 1 , alignItems: 'center', justifyContent: 'center'}}
+                  onPress={() => {
+                    if(navStatus > 0){
+                      setNavStatus(navStatus - 1);
+                    }
+                  }}>
+                  <Text style = {styles.stepArrows}>◀</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {{flex: 1 , alignItems: 'center', justifyContent: 'center'}}
+                onPress={() => {
+                  if(navStatus < route.params.newRouteInfo.legs[0].steps.length - 1){
+                    setNavStatus(navStatus + 1);
+                  }
+                }}>
+                  <Text style = {styles.stepArrows}>▶</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
         </View>
       );
     }
 
-    else return(
+    else {
+      return(
       <View style = {styles.container}>
         <MapView
           provider="google" // remove if not using Google Maps
@@ -154,12 +207,14 @@ function MapScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
     );
+  }
 }
 
 function CreateRouteScreen({ route, navigation }) {
   //Create a state to pass to the next screen when you navigate to it. This state is called routeData. It can be changed using the setRouteData function.
+  //When the state is changed, the component will rerender.
   //Use the React useState hook to create a state outside of a class. React.useState returns an array with 2 values: the current state (routeData), and a function to update it (setRouteData).
-  //Calling useState multiple times does nothing, useState should only be called once and then the state should be changed with setRouteData.
+  //Calling useState multiple times does nothing but return the current state, useState should only be called once and then the state should be changed with setRouteData.
   const [routeData, setRouteData] = React.useState(undefined);
   const [geocodingData, setGeocodingData] = React.useState({
     inputs: ["",""],
@@ -168,6 +223,7 @@ function CreateRouteScreen({ route, navigation }) {
     newLocationLoaded: false //flag that stops infinite direction requests from being executed. True only if a new location has been loaded and a direction request has not been made with it yet.
   });
   const [switchEnabled, setSwitchEnabled] = useState(false);
+  const [crashList, setCrashList] = useState(undefined);
 
   var avoidHighways = "";
   if(switchEnabled) avoidHighways = "&avoid=highways";
@@ -223,22 +279,159 @@ function CreateRouteScreen({ route, navigation }) {
     });
   }
 
-  //if routes have been received from the Directions API, create a view to display each of them which, when clicked,
+  //if routes have been received from the Directions API, create a RouteOption to display each of them which, when clicked,
   //will send the appropriate route info to the map screen and navigate there so the user can view the route.
+  //Calculate the safety rating for each route.
   var routesDisplay = [];
   if(typeof routeData !== "undefined"){
     if(routeData.status === "OK"){
+      if(typeof crashList === "undefined") {
+        var initialCrashList = []; //asynchronously becomes populated with every crash that has occurred in DFW counties
+        var countyNumberList = [85, 113, 121, 139, 251, 257, 367, 397, 439, 497]; //Collin, Dallas, Denton, Ellis, Johnson, Kaufman, Parker, Rockwall, Tarrant, Wise respectively
+        countyNumberList.forEach(function(number, idx) {
+          let url = "https://crashviewer.nhtsa.dot.gov/CrashAPI/crashes/GetCrashesByLocation?fromCaseYear=2018&toCaseYear=2019&state=48&county=" + number + "&format=json";
+          fetch(url)
+          .then((response) => response.json())
+          .then((responseJson) => {
+            responseJson.Results[0].forEach(function(entry,index) {
+              for(var i = 0; i < 2; i++) { //run this code twice for each result since there may be a TWAY_ID2 (secondary road name)
+                var roadName;
+                if(i === 0) roadName = entry.TWAY_ID;
+                  else if(i === 1 && entry.TWAY_ID2 !== "") roadName = entry.TWAY_ID2;
+                    else break;
+                //in wordsToFix, add a word from the crash database road names that needs to be changed followed by what it should be changed to. So even indices should be words to remove and odd indices should be their replacements.
+                //Would like to shorten TRAIL to TRL but there are too many issues with it, such as "Chisholm Trail Rd".
+                //Keep the last two indices as " " and "" to omit any spaces after fixing all this stuff. Omitting spaces should make it more likely to properly detect road matches.
+                var wordsToFix = ["AVENUE", "AVE", "STREET", "ST", "DRIVE", "DR", "ROAD", "RD", "PARKWAY", "PKWY", "FREEWAY", "FRWY", "HIGHWAY", "HWY", "LANE", "LN",
+                "PGBT", "PRESIDENT GEORGE BUSH TURNPIKE", "PGB TURNPIKE", "PRESIDENT GEORGE BUSH TURNPIKE", " ", ""];
+                //For each word that needs to be fixed, if that word is in the original road name, split the name by using the word to fix as a delimiter.
+                //Concatenate the two (or more) split parts of the original road name with the new word name between them. This replaces the original word with the new word.
+                for(var k = 0; k < wordsToFix.length; k += 2) {
+                  if(roadName.search(wordsToFix[k]) !== -1) {
+                    let nameToFix = roadName.split(wordsToFix[k]);
+                    roadName = nameToFix[0];
+                    for (var j = 1; j < nameToFix.length; j++)
+                    roadName = roadName + wordsToFix[k + 1] + nameToFix[j];
+                  }
+                }
+                initialCrashList.push({
+                  roadName: roadName,
+                  vehicleNum: parseInt(entry.TOTALVEHICLES),
+                  fatals: parseInt(entry.FATALS),
+                });
+              }
+              if(initialCrashList.length >= 779) setCrashList(initialCrashList);
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        });
+      }
+      //In the foreach loop below, get all the roads in the routes from Google Directions API's results (routeData) and compare them to the crash API roads.
+      //Found any matches? Increment that route's fatality, accident, and crashed car count.
       routeData.routes.forEach(function(entry, index) {
+        var dead = 0;
+        var crashedCars = 0;
+        var accidents = 0;
+        var roadList = []; //becomes populated with all the road names in each route.
+        entry.legs.forEach(function(entry, index) {
+          entry.steps.forEach(function(entry, index) {
+            let instructions = entry.html_instructions;
+            let indexOfBTag = instructions.search("<b>");//Road names are always within <b></b> tags.
+            while(indexOfBTag !== -1) {
+              let indexOfExit = instructions.search("exit"); //Check to see if the next bolded part is an exit. If it is, get rid of it entirely because the exit will get counted as a road otherwise.
+              if(indexOfExit !== -1 && indexOfExit < indexOfBTag) {
+                let indexOfClosingBTag = instructions.search("</b>");
+                instructions = instructions.substring(indexOfClosingBTag + 3);
+                indexOfBTag = instructions.search("<b>");
+                continue;
+              }
+              instructions = instructions.substring(indexOfBTag + 3);
+              let indexOfClosingBTag = instructions.search("</b>");
+              if(indexOfClosingBTag === -1) break;
+              let boldedString = instructions.substring(0, indexOfClosingBTag);
+              //in bolded parts of html_instructions, road names have spaces between them. If this string has a space (and you checked to make sure it's not an exit already), it's a road. Also check to ensure no duplicates.
+              if(boldedString.search(" ") != -1  && roadList.indexOf(boldedString) === -1) {
+                boldedString = boldedString.toUpperCase(); //every road name in the crash api is upper case. So make these names match that.
+
+                //Highway names are a mess in the crash API. Just find the highway name (letter(s) followed by a dash followed by number(s)) and compare that.
+                var isDash = boldedString.search("-"); //Is there a dash in the road name from Google Directions API?
+                var highwayNameStart = 0;
+                var highwayNameEnd = boldedString.length;
+                if(isDash !== -1){
+                  for(var l = isDash - 1; l >= 0; l--){
+                    let startCut = boldedString.substring(l, l + 1);
+                    if(startCut === " ") {
+                      highwayNameStart = l + 1;
+                      break;
+                    }
+                  }
+                  for(var l = isDash + 1; l < boldedString.length; l++){
+                    let endCut = boldedString.substring(l, l + 1);
+                    if(endCut === " ") {
+                      highwayNameEnd = l;
+                      break;
+                    }
+                  }
+                }
+                var highwayName = boldedString.substring(highwayNameStart,highwayNameEnd);
+                //Remove spaces. Also did this above with the crash data road names. Should make it more likely to successfully match roads.
+                if(boldedString.search(" ") !== -1) {
+                  let spacesCutOut = boldedString.split(" ");
+                  boldedString = spacesCutOut[0];
+                  for (var j = 1; j < spacesCutOut.length; j++)
+                  boldedString = boldedString + spacesCutOut[j];
+                }
+                if(typeof crashList !== "undefined")
+                  crashList.forEach(function(entry, index) {
+                    //console.log("NHTSA name: " + entry.roadName + " Google name: " + boldedString + " Highway: " + highwayName);
+                    if(entry.roadName.search(boldedString) !== -1) {
+                      dead += entry.fatals;
+                      crashedCars += entry.vehicleNum;
+                      accidents++;
+                      console.log("Match found for " + entry.roadName);
+                    }
+                    else if((isDash !== -1) && (entry.roadName.search(highwayName) !== -1)){
+                      dead += entry.fatals;
+                      crashedCars += entry.vehicleNum;
+                      accidents++;
+                      console.log("Highway match found for " + entry.roadName);
+                    }
+                  });
+                roadList.push(boldedString);
+              }
+              indexOfBTag = instructions.search("<b>");
+            }
+        });});
+        var safetyScore = dead + (crashedCars / 2);
+        var ratingLetter = '?';
+        if(typeof crashList !== "undefined") {
+          if(safetyScore > 240) ratingLetter = 'F';
+          else if (safetyScore > 220) ratingLetter = 'D-';
+          else if (safetyScore > 200) ratingLetter = 'D';
+          else if (safetyScore > 180) ratingLetter = 'D+';
+          else if (safetyScore > 160) ratingLetter = 'C-';
+          else if (safetyScore > 140) ratingLetter = 'C';
+          else if (safetyScore > 120) ratingLetter = 'C+';
+          else if (safetyScore > 100) ratingLetter = 'B-';
+          else if (safetyScore > 80) ratingLetter = 'B';
+          else if (safetyScore > 60) ratingLetter = 'B+';
+          else if (safetyScore > 40) ratingLetter = 'A-';
+          else if (safetyScore > 20) ratingLetter = 'A';
+          else ratingLetter = 'A+';
+        }
         routesDisplay[index] =
           <RouteOption
             summary = {entry.summary}
             distance = {entry.legs[0].distance.text}
             duration = {entry.legs[0].duration.text}
-            ratingLetter = 'F' //This will be set to our calculated safety rating
+            ratingLetter = {ratingLetter} //This will be set to our calculated safety rating
             key = {index}
           >
             <View style = {{height: 80, justifyContent: 'flex-end'}}>
-              <Text style = {styles.safetyFacts}>0 accidents reported along this route in the past year</Text>
+              <Text style = {styles.safetyFacts}>{crashedCars} vehicles involved in an accident along this route in 2018</Text>
+              <Text style = {styles.safetyFacts}>{dead} fatalities along this route in 2018</Text>
               <TouchableOpacity
                 onPress={() => {navigation.navigate('Map', {newRouteInfo: routeData.routes[index]});}}
                 style = {styles.selectRouteButton}>
@@ -409,6 +602,15 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     alignSelf: 'center'
   },
+  navigator: {
+    position: "absolute",
+    height: 110,
+    opacity: .95,
+    borderRadius: 2,
+    backgroundColor: "white",
+    flexDirection: 'row',
+    width: width,
+  },
   createRouteButton: {
     position: "absolute",
     backgroundColor: "#ff2063",
@@ -455,7 +657,11 @@ const styles = StyleSheet.create({
   safetyFacts: {
     fontFamily: 'Varela-Regular',
     fontSize: 12,
-    marginBottom: 10,
+    bottom: 7,
     color: '#262626'
+  },
+  stepArrows: {
+    color: 'white',
+    fontSize: 44
   }
 });

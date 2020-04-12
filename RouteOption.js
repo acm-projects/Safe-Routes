@@ -43,6 +43,35 @@ class RouteOption extends Component {
     render(){
       let contentThatIsShownWhenExpanded = <View/>;
       if(this.state.expanded) contentThatIsShownWhenExpanded = this.props.children;
+      var letterColor = 'black';
+      switch(this.props.ratingLetter){
+        case "A+": letterColor = '#003800';
+          break;
+        case "A": letterColor = '#006000';
+          break;
+        case "A-": letterColor = '#467200';
+          break;
+        case "B+": letterColor = '#696d00';
+          break;
+        case "B": letterColor = '#8c9100';
+          break;
+        case "B-": letterColor = '#ba8c01';
+          break;
+        case "C+": letterColor = '#ba7001';
+          break;
+        case "C": letterColor = 'orange';
+          break;
+        case "C-": letterColor = '#fc5102';
+          break;
+        case "D+": letterColor = '#f23000';
+          break;
+        case "D": letterColor = 'red';
+          break;
+        case "D-": letterColor = '#ba0000';
+          break;
+        case "F": letterColor = 'maroon';
+          break;
+      }
         return (
             <Animated.View style = {{height: this.state.animation, borderBottomWidth: 3, borderBottomColor: 'white', backgroundColor: '#f7dfe6'}}>
               <TouchableOpacity style = {{padding: 5}} onPress={this.toggle.bind(this)}>
@@ -53,7 +82,7 @@ class RouteOption extends Component {
                     <Text style={{ fontSize: 12, fontFamily: 'Varela-Regular'}}>{this.props.duration}</Text>
                   </View>
                   <View style = {{flex: 2, justifyContent:'center', alignItems: 'center'}}>
-                    <Text style={styles.ratingLetter}>{this.props.ratingLetter}</Text>
+                    <Text style={{fontSize: 30, fontFamily: 'Varela-Regular', color: letterColor}}>{this.props.ratingLetter}</Text>
                   </View>
                 </View>
                 <View>
@@ -67,8 +96,5 @@ class RouteOption extends Component {
 export default RouteOption;
 
 const styles = StyleSheet.create({
-  ratingLetter: {
-    fontSize: 30,
-    color: 'maroon'
-  },
+
 });
