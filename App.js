@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Switch,
-  Dimensions
+  Dimensions,
+  Image
 } from 'react-native';
 import RouteOption from './RouteOption';
 
@@ -78,24 +79,27 @@ function MapScreen({ route, navigation }) {
                 latitude : point[0],
                 longitude : point[1]
             }
-        })
+        });
       var stepInstructions = route.params.newRouteInfo.legs[0].steps[navStatus].html_instructions;
 
       //get rid of the stupid html tags
       stepInstructions = stepInstructions.replace(/<b>/g, ""); //remove <b> tag
       stepInstructions = stepInstructions.replace(/<\/b>/g, ""); //remove </b> tag
       stepInstructions = stepInstructions.replace(/<wbr\/>/g, ""); //remove <wbr/> tag
-      var openingTagOpener = stepInstructions.indexOf("<");
-      var openingTagCloser = stepInstructions.indexOf(">");
-      if(openingTagOpener !== -1 && openingTagCloser !== -1){ //if there is a <[tagName] style = ...> remove that whole thing and replace with -
-        let firstHalf = stepInstructions.substring(0, openingTagOpener);
-        let secondHalf = stepInstructions.substring(openingTagCloser + 1);
-        let tagName = stepInstructions.substring(openingTagOpener + 1, openingTagCloser);
-        let nameCutOff = tagName.indexOf(" ");
-        if(nameCutOff !== -1) tagName = tagName.substring(0, nameCutOff);
-        console.log(tagName);
-        stepInstructions = firstHalf + " - " + secondHalf;
-        stepInstructions = stepInstructions.replace("</" + tagName + ">", ""); //remove </[tagName]> tag
+      while(true){
+        var openingTagOpener = stepInstructions.indexOf("<");
+        var openingTagCloser = stepInstructions.indexOf(">");
+        if(openingTagOpener !== -1 && openingTagCloser !== -1){ //if there is a <[tagName] style = ...> remove that whole thing and replace with -
+          let firstHalf = stepInstructions.substring(0, openingTagOpener);
+          let secondHalf = stepInstructions.substring(openingTagCloser + 1);
+          let tagName = stepInstructions.substring(openingTagOpener + 1, openingTagCloser);
+          let nameCutOff = tagName.indexOf(" ");
+          if(nameCutOff !== -1) tagName = tagName.substring(0, nameCutOff);
+          console.log(tagName);
+          stepInstructions = firstHalf + " - " + secondHalf;
+          stepInstructions = stepInstructions.replace("</" + tagName + ">", ""); //remove </[tagName]> tag
+        }
+        else break;
       }
       var ampersand = stepInstructions.indexOf("&");
       var semicolon = stepInstructions.indexOf(";");
@@ -115,7 +119,7 @@ function MapScreen({ route, navigation }) {
             style={styles.map}
             customMapStyle = {mapStyle}
             showsUserLocation = {true}
-            followUserLocation = {false}
+            followUserLocation = {true}
             region={{
             latitude: (route.params.newRouteInfo.legs[0].steps[navStatus].start_location.lat + route.params.newRouteInfo.legs[0].steps[navStatus].end_location.lat) / 2,
             longitude: (route.params.newRouteInfo.legs[0].steps[navStatus].start_location.lng + route.params.newRouteInfo.legs[0].steps[navStatus].end_location.lng) / 2,
@@ -168,7 +172,10 @@ function MapScreen({ route, navigation }) {
                       setNavStatus(navStatus - 1);
                     }
                   }}>
-                  <Text style = {styles.stepArrows}>◀</Text>
+                  <Image
+                    style={styles.stepArrows}
+                    source={require('./assets/images/leftarrow.png')}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity style = {{flex: 1 , alignItems: 'center', justifyContent: 'center'}}
                 onPress={() => {
@@ -176,7 +183,10 @@ function MapScreen({ route, navigation }) {
                     setNavStatus(navStatus + 1);
                   }
                 }}>
-                  <Text style = {styles.stepArrows}>▶</Text>
+                  <Image
+                    style={styles.stepArrows}
+                    source={require('./assets/images/rightarrow.png')}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -661,7 +671,7 @@ const styles = StyleSheet.create({
     color: '#262626'
   },
   stepArrows: {
-    color: 'white',
-    fontSize: 44
+    width: 40,
+    height: 40
   }
 });
