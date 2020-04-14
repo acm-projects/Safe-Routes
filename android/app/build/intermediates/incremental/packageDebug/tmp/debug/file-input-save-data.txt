@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Mar 01 16:30:15 CST 2020
+#Wed Apr 01 19:37:19 CDT 2020
 56.path=lib/x86_64/libglog.so
 5.base=C\:\\Users\\leoal\\AndroidStudioProjects\\FirstProject\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
 42.base=C\:\\Users\\leoal\\AndroidStudioProjects\\FirstProject\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
