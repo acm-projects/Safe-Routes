@@ -21,6 +21,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const GOOGLE_MAPS_APIKEY = ''; //Enter the API key here. Remove it before pushing to GitHub.
+const MAP_QUEST_APIKEY = '' //Remove this one too please.
 const origin = "The+University+of+Texas+at+Dallas,+800+W+Campbell+Rd,+Richardson,+TX+75080";
 const destination = "Cityline%2FBush,+East+President+George+Bush+Highway,+Richardson,+TX";
 
@@ -95,7 +96,6 @@ function MapScreen({ route, navigation }) {
           let tagName = stepInstructions.substring(openingTagOpener + 1, openingTagCloser);
           let nameCutOff = tagName.indexOf(" ");
           if(nameCutOff !== -1) tagName = tagName.substring(0, nameCutOff);
-          console.log(tagName);
           stepInstructions = firstHalf + " - " + secondHalf;
           stepInstructions = stepInstructions.replace("</" + tagName + ">", ""); //remove </[tagName]> tag
         }
@@ -234,6 +234,7 @@ function CreateRouteScreen({ route, navigation }) {
   });
   const [switchEnabled, setSwitchEnabled] = useState(false);
   const [crashList, setCrashList] = useState(undefined);
+  const [trafficData, setTrafficData] = useState(undefined);
 
   var avoidHighways = "";
   if(switchEnabled) avoidHighways = "&avoid=highways";
@@ -295,6 +296,19 @@ function CreateRouteScreen({ route, navigation }) {
   var routesDisplay = [];
   if(typeof routeData !== "undefined"){
     if(routeData.status === "OK"){
+      if(typeof trafficData === 'undefined') {
+          let startLat = routeData.routes[0].legs[0].start_location.lat;
+          let startLng = routeData.routes[0].legs[0].start_location.lng;
+          let finishLat = routeData.routes[0].legs[0].end_location.lat;
+          let finishLng = routeData.routes[0].legs[0].end_location.lng;
+          console.log("boundingBox: " + startLat + ","+ startLng + "," + finishLat + "," + finishLng);
+          fetch("http://www.mapquestapi.com/traffic/v2/incidents?key=" + MAP_QUEST_APIKEY + "&boundingBox=" + startLat + "," + startLng + "," + finishLat + "," + finishLng + "&filters=construction,incidents,congestion")
+          .then((response) => response.json())
+          .then((json) => {
+            setTrafficData(json.incidents);
+          })
+          .catch((error) => console.error(error));
+      }
       if(typeof crashList === "undefined") {
         var initialCrashList = []; //asynchronously becomes populated with every crash that has occurred in DFW counties
         var countyNumberList = [85, 113, 121, 139, 251, 257, 367, 397, 439, 497]; //Collin, Dallas, Denton, Ellis, Johnson, Kaufman, Parker, Rockwall, Tarrant, Wise respectively
@@ -330,7 +344,7 @@ function CreateRouteScreen({ route, navigation }) {
                   fatals: parseInt(entry.FATALS),
                 });
               }
-              if(initialCrashList.length >= 779) setCrashList(initialCrashList);
+              if(initialCrashList.length >= 779) setCrashList(initialCrashList); //if all the crashes have been obtained, for 2018 the total fatal crashes seems to be 779
             });
           })
           .catch((error) => {
@@ -393,42 +407,57 @@ function CreateRouteScreen({ route, navigation }) {
                   for (var j = 1; j < spacesCutOut.length; j++)
                   boldedString = boldedString + spacesCutOut[j];
                 }
-                if(typeof crashList !== "undefined")
+                if(typeof crashList !== "undefined" && typeof trafficData !== "undefined") {
                   crashList.forEach(function(entry, index) {
                     //console.log("NHTSA name: " + entry.roadName + " Google name: " + boldedString + " Highway: " + highwayName);
                     if(entry.roadName.search(boldedString) !== -1) {
                       dead += entry.fatals;
                       crashedCars += entry.vehicleNum;
                       accidents++;
-                      console.log("Match found for " + entry.roadName);
+                      //console.log("Match found for " + entry.roadName);
                     }
                     else if((isDash !== -1) && (entry.roadName.search(highwayName) !== -1)){
                       dead += entry.fatals;
                       crashedCars += entry.vehicleNum;
                       accidents++;
-                      console.log("Highway match found for " + entry.roadName);
+                      //console.log("Highway match found for " + entry.roadName);
                     }
                   });
+                }
                 roadList.push(boldedString);
               }
               indexOfBTag = instructions.search("<b>");
             }
         });});
-        var safetyScore = dead + (crashedCars / 2);
+
+        var totalSeverity = 0;
+        if(typeof trafficData !== "undefined"){
+          trafficData.forEach(function(entry, index) {
+            if(entry.type === 1)
+            totalSeverity += entry.severity * 2;
+            else if(entry.type === 4)
+            totalSeverity += entry.severity * 3;
+            else totalSeverity += entry.severity;
+            console.log(entry.shortDesc);
+          });
+        }
+        console.log(totalSeverity);
+
+        var safetyScore = dead + (crashedCars / 2) + totalSeverity;
         var ratingLetter = '?';
         if(typeof crashList !== "undefined") {
-          if(safetyScore > 240) ratingLetter = 'F';
-          else if (safetyScore > 220) ratingLetter = 'D-';
-          else if (safetyScore > 200) ratingLetter = 'D';
-          else if (safetyScore > 180) ratingLetter = 'D+';
-          else if (safetyScore > 160) ratingLetter = 'C-';
-          else if (safetyScore > 140) ratingLetter = 'C';
-          else if (safetyScore > 120) ratingLetter = 'C+';
-          else if (safetyScore > 100) ratingLetter = 'B-';
-          else if (safetyScore > 80) ratingLetter = 'B';
-          else if (safetyScore > 60) ratingLetter = 'B+';
-          else if (safetyScore > 40) ratingLetter = 'A-';
-          else if (safetyScore > 20) ratingLetter = 'A';
+          if(safetyScore > 250) ratingLetter = 'F';
+          else if (safetyScore > 230) ratingLetter = 'D-';
+          else if (safetyScore > 210) ratingLetter = 'D';
+          else if (safetyScore > 190) ratingLetter = 'D+';
+          else if (safetyScore > 170) ratingLetter = 'C-';
+          else if (safetyScore > 150) ratingLetter = 'C';
+          else if (safetyScore > 130) ratingLetter = 'C+';
+          else if (safetyScore > 110) ratingLetter = 'B-';
+          else if (safetyScore > 90) ratingLetter = 'B';
+          else if (safetyScore > 70) ratingLetter = 'B+';
+          else if (safetyScore > 50) ratingLetter = 'A-';
+          else if (safetyScore > 30) ratingLetter = 'A';
           else ratingLetter = 'A+';
         }
         routesDisplay[index] =
