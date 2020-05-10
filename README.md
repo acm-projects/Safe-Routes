@@ -27,6 +27,11 @@ From the color scheme to the layout, every bit of the user interface was designe
 
 **Built with React Native**
 
+## Authors
+- Ishani Chowdhury
+- Deesha Kumbham
+- Leo Bala
+
 ## Objective:
 Safe Routes is a mobile application that determines a driving route between two locations, taking into account the safety of the route options, rather than just the time of the trip. Safe Routes will take into account a variety of factors that may affect the safety of a route, such as historical crash data, traffic, and poor road conditions. At the end of the trip, the user can rate and save routes to improve future recommended routes. This app is aimed at preventing car accidents and would be especially useful for inexperienced drivers wanting to avoid difficult driving conditions.
 ## Minimum viable product goals:
