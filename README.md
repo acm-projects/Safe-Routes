@@ -4,6 +4,7 @@ The navigation app that prioritizes safety. Erase doubts with Safe Routes.
 https://youtu.be/3sWeisjQnYk?t=2340
 ## Features
 **Geocoding**
+
 Search for your origin and destination by typing in a simple description. Powered by the Google Maps Geocoding API (https://developers.google.com/maps/documentation/geocoding/start)
 
 **Routes**
@@ -21,6 +22,7 @@ Search for your origin and destination by typing in a simple description. Powere
 - Influenced by live traffic events from the MapQuest Traffic API (https://developer.mapquest.com/documentation/traffic-api/)
 
 **Eye Candy**
+
 From the color scheme to the layout, every bit of the user interface was designed to look as beautiful as it is functional.
 
 **Built with React Native**
