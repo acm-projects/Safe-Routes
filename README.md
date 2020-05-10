@@ -1,6 +1,6 @@
 # Safe Routes
 The navigation app that prioritizes safety. Erase doubts with Safe Routes.
-## Check out our team's final presentation of the app here!
+## Watch our team's final presentation of the app here!
 https://youtu.be/3sWeisjQnYk?t=2340
 ## Features
 **Geocoding**
