@@ -5,7 +5,7 @@ The navigation app that prioritizes safety. Erase doubts with Safe Routes.
 ## Features
 
 **Geocoding**
-Search for your origin and destination by typing in a simple description. Powered by the [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/start)
+- Search for your origin and destination by typing in a simple description. Powered by the [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/start)
 
 **Routes**
 - Choose from multiple routes delivered by the [Google Maps Directions API](https://developers.google.com/maps/documentation/directions/intro)
@@ -23,9 +23,8 @@ Search for your origin and destination by typing in a simple description. Powere
 
 **Eye Candy**
 
-From the color scheme to the layout, every bit of the user interface was designed to look as beautiful as it is functional.
-
-**Built with React Native**
+- From the color scheme to the layout, every bit of the user interface was designed to look as beautiful as it is functional.
+- Built with React Native
 
 ## Authors
 - Leo Bala - *Developer* - [th3bala](https://github.com/th3bala)
