@@ -24,7 +24,7 @@ The navigation app that prioritizes safety. Erase doubts with Safe Routes.
 **Eye Candy**
 
 - From the color scheme to the layout, every bit of the user interface was designed to look as beautiful as it is functional.
-- Built with React Native
+- Built with [React Native](https://reactnative.dev/)
 
 ## Authors
 - Leo Bala - *Developer* - [th3bala](https://github.com/th3bala)
